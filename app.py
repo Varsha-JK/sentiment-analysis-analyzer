@@ -3,10 +3,8 @@ from analyzer import keywords_cloud, pre_process, DbConnect, sentiment
 import pandas as pd
 import jsonpickle
 import base64
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route("/")
 def home():
@@ -20,10 +18,8 @@ def get_wordcloud():
         index = len(tweets_df)
         tweets_df.loc[index, 'preprocessed_tweets'] = pre_process(data[0])
     img = keywords_cloud(tweets_df)
-    # imgword = 'data:image/png;base64,{}'.format(base64.b64encode(img.getvalue()).decode())
-    # return render_template('visuals.html', wordcloud=imgword)
-    img.save("./wordcloud.png")
-    return send_file('./wordcloud.png')
+    imgword = 'data:image/png;base64,{}'.format(base64.b64encode(img.getvalue()).decode())
+    return render_template('visuals.html', wordcloud=imgword)
 
 @app.route("/analyze/sentiment")
 def get_sentiment():

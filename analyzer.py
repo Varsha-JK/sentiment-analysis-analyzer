@@ -34,10 +34,9 @@ def keywords_cloud(tweet_df):
     words = ' '.join([text for text in tweet_df['preprocessed_tweets']])
     wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(words)
     wordcloudImage = wordcloud.to_image()
-    # img = BytesIO()
-    # wordcloudImage.save(img, format='PNG')
-    # return img
-    return wordcloudImage   
+    img = BytesIO()
+    wordcloudImage.save(img, format='PNG')
+    return img
 
 
 def calc_percent(number, total):
