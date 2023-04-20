@@ -22,7 +22,8 @@ def pre_process(tweet):
 
 #Connect to db and fetch data
 def DbConnect(topic):
-    connection = psycopg2.connect(host="0.0.0.0", database="postgres", port=5432, user= "postgres", password = "postgres")
+    DATABASE_URL = 'postgres://bnariixreyjoiz:824ef864682bec505c004f004ff146ea86ecfcd6eeac5f65f2b56f2b023484cb@ec2-54-208-11-146.compute-1.amazonaws.com:5432/de7a7uvn6sad18'
+    connection = psycopg2.connect(DATABASE_URL)
     curr = connection.cursor()
     curr.execute("SELECT tweets FROM tweets WHERE topic = (%s);", [topic])
     data = curr.fetchall()
