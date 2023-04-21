@@ -32,23 +32,19 @@ def get_sentiment():
 
 @app.route("/analyze/<topic>")
 def analyze(topic):
-    loc_url = "http://10.0.0.99:7007/collector/{}".format(topic)
-    result = requests.get(loc_url).json()
-    while "status" not in result:
-        result = requests.get(loc_url).json()
-    if result["status"] == "success":
-        print("success")
+    # loc_url = "http://10.0.0.99:7007/collector/{}".format(topic)
+    # result = requests.get(loc_url).json()
+    # while "status" not in result:
+    #     result = requests.get(loc_url).json()
+    # if result["status"] == "success":
+    #     print("success")
+    # topic = "india"
     global tweets
     tweets = DbConnect(topic)
-    print(tweets)
+    # print(tweets)
     result = {"status":"success"}
     return Response(response=jsonpickle.encode(result), status=200, mimetype="application/json")
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
-
-
-
-
-
-
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8000)
+    # app.run()

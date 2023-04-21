@@ -24,6 +24,7 @@ def pre_process(tweet):
 def DbConnect(topic):
     DATABASE_URL = 'postgres://bnariixreyjoiz:824ef864682bec505c004f004ff146ea86ecfcd6eeac5f65f2b56f2b023484cb@ec2-54-208-11-146.compute-1.amazonaws.com:5432/de7a7uvn6sad18'
     connection = psycopg2.connect(DATABASE_URL)
+    # connection = psycopg2.connect(host="postgres", database="postgres", port=5432, user= "postgres", password = "postgres")
     curr = connection.cursor()
     curr.execute("SELECT tweets FROM tweets WHERE topic = (%s);", [topic])
     data = curr.fetchall()
@@ -37,7 +38,6 @@ def keywords_cloud(tweet_df):
     wordcloudImage = wordcloud.to_image()
     # img = BytesIO()
     # wordcloudImage.save(img, format='PNG')
-    # return img
     return wordcloudImage
 
 

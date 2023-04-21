@@ -1,7 +1,10 @@
-FROM python:3.9
+FROM --platform=linux/amd64 python:3.9
 RUN mkdir /app
 ADD . /app
 WORKDIR /app
-RUN pip install -r requirements.txt
-EXPOSE 7007
-CMD ["python", "app.py"]
+RUN apt-get -y update
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip3 install -r requirements.txt
+EXPOSE $PORT
+# CMD ["python", "app.py"]
+CMD gunicorn app:app
