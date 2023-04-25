@@ -7,9 +7,9 @@ workflows:
   test-deploy:
     jobs:
       - test
-      - build-deploy:
-          requires:
-            - test
+#      - build-deploy:
+#          requires:
+#            - test
 
 jobs:
   test:
@@ -21,7 +21,7 @@ jobs:
           pkg-manager: pip
       - run:
           name: Run tests
-          command: pytest
+          command: coverage run -m pytest
   build-deploy:
     machine: true
     steps:
