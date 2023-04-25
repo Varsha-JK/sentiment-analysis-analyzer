@@ -21,7 +21,7 @@ jobs:
           pkg-manager: pip
       - run:
           name: Run tests
-          command:
+          command: |
             mkdir test-results
             pytest --cov="." --html=test-results/report.html
       - store_test_results:
