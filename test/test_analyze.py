@@ -1,5 +1,6 @@
 import json
 from app import app
+import logging
 
 def test_analyze():
     response = app.test_client().get('/analyze/books')

@@ -1,6 +1,6 @@
 from textblob import TextBlob
 import re
-from wordcloud import WordCloud
+# from wordcloud import WordCloud
 import psycopg2
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -33,11 +33,12 @@ def DbConnect(topic):
 
 
 def keywords_cloud(tweet_df):
-    words = ' '.join([text for text in tweet_df['preprocessed_tweets']])
-    wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(words)
-    wordcloudImage = wordcloud.to_image()
-    # img = BytesIO()
-    # wordcloudImage.save(img, format='PNG')
+    # words = ' '.join([text for text in tweet_df['preprocessed_tweets']])
+    # wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(words)
+    # wordcloudImage = wordcloud.to_image()
+    # # img = BytesIO()
+    # # wordcloudImage.save(img, format='PNG')
+    wordcloudImage = None
     return wordcloudImage
 
 

@@ -21,7 +21,11 @@ jobs:
           pkg-manager: pip
       - run:
           name: Run tests
-          command: coverage run -m pytest
+          command:
+            mkdir test-results
+            pytest --cov="." --html=test-results/report.html
+      - store_test_results:
+          path: test-results
   build-deploy:
     machine: true
     steps:
