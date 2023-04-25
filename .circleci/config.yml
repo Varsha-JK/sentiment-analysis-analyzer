@@ -4,13 +4,15 @@ orbs:
   python: circleci/python@2.1.1
 
 workflows:
-  build-deploy:
+  test-deploy:
     jobs:
-      - build-n-deploy
+      - test
+      - build-deploy:
+          requires:
+            - test
 
 jobs:
-  build-n-deploy:
-#    machine: true
+  test:
     docker:
       - image: cimg/python:3.9
     steps:
@@ -20,6 +22,10 @@ jobs:
       - run:
           name: Run tests
           command: pytest
+  build-deploy:
+    machine: true
+    steps:
+      - checkout
       - run:
           name: Build and push Docker image to Heroku
           command: |
