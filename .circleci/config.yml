@@ -24,7 +24,7 @@ jobs:
           command: |
             mkdir test-results
             pytest --cov="." --html=test-results/report.html
-      - store_test_results:
+      - store_artifacts:
           path: test-results
   build-deploy:
     machine: true
