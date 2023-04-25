@@ -10,6 +10,11 @@ jobs:
     machine: true
     steps:
       - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Run tests
+          command: pytest
       - run:
           name: Build and push Docker image to Heroku
           command: |
