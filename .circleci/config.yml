@@ -16,5 +16,5 @@ jobs:
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a circle-ci-tutorial web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a circle-ci-tutorial web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a sentiment-analysis-analyze web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a sentiment-analysis-analyze web
