@@ -28,7 +28,7 @@ def DbConnect(topic):
     curr = connection.cursor()
     curr.execute("SELECT tweet FROM tweets WHERE topic = %s;", [topic])
     data = curr.fetchall()
-    print(data)
+    # print(data)
     return data
 
 
@@ -54,7 +54,6 @@ def sentiment(tweets):
     negative_list = []
     positive_list = []
     number_of_tweets = len(tweets)
-    print()
     for tweet in tweets:
         tweet = tweet[0]
         print("tweeets",tweet)

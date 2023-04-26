@@ -35,18 +35,18 @@ def get_sentiment(topic):
 
 @app.route("/analyze/<topic>")
 def analyze(topic):
-    # collector_url = os.getenv("COLLECTOR_URL")
-    # loc_url = "{0}/collector/{1}".format(collector_url,topic)
-    # result = requests.get(loc_url).json()
-    # while "status" not in result:
-    #     result = requests.get(loc_url).json()
-    # if result["status"] == "success":
-    #     print("success")
-    # global tweets
-    # tweets = DbConnect(topic)
+    collector_url = os.getenv("COLLECTOR_URL")
+    loc_url = "{0}/collector/{1}".format(collector_url,topic)
+    result = requests.get(loc_url).json()
+    while "status" not in result:
+        result = requests.get(loc_url).json()
+    if result["status"] == "success":
+        print("success")
+    global tweets
+    tweets = DbConnect(topic)
     result = {"status":"success"}
     return Response(response=jsonpickle.encode(result), status=200, mimetype="application/json")
 
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=8000)
-#     app.run()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
+    app.run()
