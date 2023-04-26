@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, render_template, Response, send_file
 from analyzer import keywords_cloud, pre_process, DbConnect, sentiment
 import pandas as pd

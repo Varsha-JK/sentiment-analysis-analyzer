@@ -7,9 +7,9 @@ workflows:
   test-deploy:
     jobs:
       - test
-#      - build-deploy:
-#          requires:
-#            - test
+      - build-deploy:
+          requires:
+            - test
 
 jobs:
   test:

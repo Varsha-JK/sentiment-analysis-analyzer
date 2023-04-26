@@ -1,6 +1,6 @@
 from textblob import TextBlob
 import re
-# from wordcloud import WordCloud
+from wordcloud import WordCloud
 import psycopg2
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -26,19 +26,19 @@ def DbConnect(topic):
     connection = psycopg2.connect(DATABASE_URL)
     # connection = psycopg2.connect(host="postgres", database="postgres", port=5432, user= "postgres", password = "postgres")
     curr = connection.cursor()
-    curr.execute("SELECT tweets FROM tweets WHERE topic = (%s);", [topic])
+    curr.execute("SELECT tweet FROM tweets WHERE topic = %s;", [topic])
     data = curr.fetchall()
-
+    print(data)
     return data
 
 
 def keywords_cloud(tweet_df):
-    # words = ' '.join([text for text in tweet_df['preprocessed_tweets']])
-    # wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(words)
-    # wordcloudImage = wordcloud.to_image()
-    # # img = BytesIO()
-    # # wordcloudImage.save(img, format='PNG')
-    wordcloudImage = None
+    words = ' '.join([text for text in tweet_df['preprocessed_tweets']])
+    wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(words)
+    wordcloudImage = wordcloud.to_image()
+    # img = BytesIO()
+    # wordcloudImage.save(img, format='PNG')
+    # wordcloudImage = None
     return wordcloudImage
 
 
@@ -54,14 +54,15 @@ def sentiment(tweets):
     negative_list = []
     positive_list = []
     number_of_tweets = len(tweets)
+    print()
     for tweet in tweets:
         tweet = tweet[0]
+        print("tweeets",tweet)
         analysis = TextBlob(tweet)
         score = SentimentIntensityAnalyzer().polarity_scores(tweet)
         negative_score = score['neg']
         positive_score = score['pos']
         polarity += analysis.sentiment.polarity
-
         if negative_score > positive_score:
             negative_list.append(tweet)
             negative += 1
@@ -79,3 +80,4 @@ def sentiment(tweets):
     negative = format(negative, '.1f')
     neutral = format(neutral, '.1f')
     return {'pos':positive, 'neu':neutral, 'neg':negative}
+
