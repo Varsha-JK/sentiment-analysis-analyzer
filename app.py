@@ -36,9 +36,9 @@ def get_sentiment(topic):
 def analyze(topic):
     collector_url = os.getenv("COLLECTOR_URL")
     # collector_url = os.getenv("COLLECTOR_URL_KAFKA")
-    produce(topic)
+    # produce(topic)
     loc_url = "{0}/collector/{1}".format(collector_url,topic)
-    result = requests.get(loc_url)
+    result = requests.get(loc_url).json()
     while "status" not in result:
         result = requests.get(loc_url).json()
     if result["status"] == "success":
