@@ -1,5 +1,3 @@
-import time
-
 from flask import Flask, render_template, Response, send_file
 from analyzer import keywords_cloud, pre_process, DbConnect, sentiment
 import pandas as pd
@@ -7,6 +5,7 @@ import jsonpickle
 import requests
 from flask_cors import CORS
 import os
+from kafka import produce
 
 app = Flask(__name__)
 CORS(app)
@@ -36,8 +35,10 @@ def get_sentiment(topic):
 @app.route("/analyze/<topic>")
 def analyze(topic):
     collector_url = os.getenv("COLLECTOR_URL")
+    # collector_url = os.getenv("COLLECTOR_URL_KAFKA")
+    produce(topic)
     loc_url = "{0}/collector/{1}".format(collector_url,topic)
-    result = requests.get(loc_url).json()
+    result = requests.get(loc_url)
     while "status" not in result:
         result = requests.get(loc_url).json()
     if result["status"] == "success":
