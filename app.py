@@ -5,7 +5,7 @@ import jsonpickle
 import requests
 from flask_cors import CORS
 import os
-from kafka import produce
+from kafka_messaging import producer
 
 app = Flask(__name__)
 CORS(app)
@@ -35,9 +35,8 @@ def get_sentiment(topic):
 @app.route("/analyze/<topic>")
 def analyze(topic):
     collector_url = os.getenv("COLLECTOR_URL")
-    # collector_url = os.getenv("COLLECTOR_URL_KAFKA")
-    # produce(topic)
-    loc_url = "{0}/collector/{1}".format(collector_url,topic)
+    loc_url = "{0}/collector/{1}".format(collector_url,"collect")
+    producer(topic)
     result = requests.get(loc_url).json()
     while "status" not in result:
         result = requests.get(loc_url).json()
@@ -48,6 +47,6 @@ def analyze(topic):
     result = {"status":"success"}
     return Response(response=jsonpickle.encode(result), status=200, mimetype="application/json")
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
-    app.run()
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8000)
+#     app.run()

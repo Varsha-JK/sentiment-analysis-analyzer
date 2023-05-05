@@ -56,7 +56,6 @@ def sentiment(tweets):
     number_of_tweets = len(tweets)
     for tweet in tweets:
         tweet = tweet[0]
-        print("tweeets",tweet)
         analysis = TextBlob(tweet)
         score = SentimentIntensityAnalyzer().polarity_scores(tweet)
         negative_score = score['neg']
