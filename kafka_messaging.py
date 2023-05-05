@@ -64,14 +64,17 @@ def get_kafka_producer(acks='all', value_serializer=lambda v: json.dumps(v).enco
 
 
 def producer(topic):
-    kafka_topic = os.getenv("analyzer_topic")
-    p = get_kafka_producer()
-    print('Kafka Producer has been initiated...')
-    data = {
-            'topic': topic
-        }
-    msg = json.dumps(data)
-    print(msg)
-    p.send(kafka_topic, msg)
-    print('Produced message on topic {} with value of {}\n'.format(kafka_topic, data))
-    p.close()
+    try:
+        kafka_topic = os.getenv("analyzer_topic")
+        p = get_kafka_producer()
+        print('Kafka Producer has been initiated...')
+        data = {
+                'topic': topic
+            }
+        msg = json.dumps(data)
+        print(msg)
+        p.send(kafka_topic, msg)
+        print('Produced message on topic {} with value of {}\n'.format(kafka_topic, data))
+        p.close()
+    except:
+        pass
