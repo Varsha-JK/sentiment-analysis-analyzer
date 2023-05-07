@@ -6,3 +6,4 @@
 \<hostname\>:7007/analyze/sentiment
 #### Retrieve wordcloud image: 
 \<hostname\>:7007/analyze/wordcloud
+gdhfhl;s'd
